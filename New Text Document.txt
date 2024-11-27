@@ -1,0 +1,104 @@
+class Library:
+    def __init__(self):
+        # This list will hold all the books in the library
+        self.books = []
+        self.checked_out_books = {}
+
+    def add_book(self, book_name, author):
+        """Add a new book to the library"""
+        book = {'name': book_name, 'author': author, 'status': 'available'}
+        self.books.append(book)
+        print(f"Book '{book_name}' added successfully!")
+
+    def display_books(self):
+        """Display all books in the library"""
+        if not self.books:
+            print("No books available in the library.")
+        else:
+            print("\nAvailable Books:")
+            for book in self.books:
+                status = book['status']
+                print(f"Name: {book['name']}, Author: {book['author']}, Status: {status}")
+
+    def check_out_book(self, book_name):
+        """Check out a book from the library"""
+        for book in self.books:
+            if book['name'] == book_name and book['status'] == 'available':
+                book['status'] = 'checked out'
+                self.checked_out_books[book_name] = book
+                print(f"Book '{book_name}' checked out successfully!")
+                return
+        print(f"Sorry, '{book_name}' is either not available or already checked out.")
+
+    def return_book(self, book_name):
+        """Return a checked-out book to the library"""
+        if book_name in self.checked_out_books:
+            book = self.checked_out_books.pop(book_name)
+            book['status'] = 'available'
+            print(f"Book '{book_name}' returned successfully!")
+        else:
+            print(f"Sorry, '{book_name}' was not checked out from this library.")
+
+    def search_book(self, book_name):
+        """Search for a book by name"""
+        for book in self.books:
+            if book['name'].lower() == book_name.lower():
+                status = book['status']
+                print(f"Book found: Name: {book['name']}, Author: {book['author']}, Status: {status}")
+                return
+        print(f"Sorry, no book named '{book_name}' found.")
+
+# Sample usage of the Library class
+library = Library()
+
+# Adding books
+library.add_book("The Great Gatsby", "F. Scott Fitzgerald")
+library.add_book("1984", "George Orwell")
+library.add_book("To Kill a Mockingbird", "Harper Lee")
+
+# Displaying books
+library.display_books()
+
+# Checking out a book
+library.check_out_book("1984")
+
+# Displaying books after checkout
+library.display_books()
+
+# Searching for a book
+library.search_book("The Great Gatsby")
+
+# Returning a book
+library.return_book("1984")
+
+# Displaying books after return
+library.display_books()
+
+outputs
+
+Book 'The Great Gatsby' added successfully!
+Book '1984' added successfully!
+Book 'To Kill a Mockingbird' added successfully!
+
+Available Books:
+Name: The Great Gatsby, Author: F. Scott Fitzgerald, Status: available
+Name: 1984, Author: George Orwell, Status: available
+Name: To Kill a Mockingbird, Author: Harper Lee, Status: available
+
+Book '1984' checked out successfully!
+
+Available Books:
+Name: The Great Gatsby, Author: F. Scott Fitzgerald, Status: available
+Name: 1984, Author: George Orwell, Status: checked out
+Name: To Kill a Mockingbird, Author: Harper Lee, Status: available
+
+Book found: Name: The Great Gatsby, Author: F. Scott Fitzgerald, Status: available
+
+Book '1984' returned successfully!
+
+Available Books:
+Name: The Great Gatsby, Author: F. Scott Fitzgerald, Status: available
+Name: 1984, Author: George Orwell, Status: available
+Name: To Kill a Mockingbird, Author: Harper Lee, Status: available
+Additional Features You Can Add:
+Remove Books: A met
